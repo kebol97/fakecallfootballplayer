@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <path
+        android:fillColor="#0F172A"
+        android:pathData="M100,0 A100,100 0 1,0 100,200 A100,100 0 1,0 100,0 Z"/>
+    <!-- Inter Miami Pink / Argentina Blue jersey -->
+    <path
+        android:fillColor="#F472B6"
+        android:pathData="M40,180 L160,180 L145,120 L55,120 Z"/>
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M80,120 L120,120 L100,145 Z"/>
+    <path
+        android:fillColor="#FDBA74"
+        android:pathData="M85,95 L115,95 L110,125 L90,125 Z"/>
+    <path
+        android:fillColor="#FED7AA"
+        android:pathData="M70,52 C70,28 130,28 130,52 C130,85 130,95 100,100 C70,95 70,85 70,52 Z"/>
+    <!-- Messi Hair & Beard -->
+    <path
+        android:fillColor="#78350F"
+        android:pathData="M68,50 C68,22 132,22 132,50 C125,32 75,32 68,50 Z"/>
+    <path
+        android:fillColor="#92400E"
+        android:pathData="M75,75 C75,95 125,95 125,75 L120,95 C110,100 90,100 80,95 Z"/>
+</vector>

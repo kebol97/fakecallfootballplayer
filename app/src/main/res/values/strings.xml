@@ -1,0 +1,82 @@
+<resources>
+    <string name="app_name">Football Star Fake Call &amp; Wallpaper</string>
+    <string name="tab_fake_call">Fake Call</string>
+    <string name="tab_wallpaper">Wallpaper</string>
+    <string name="tab_settings">Settings</string>
+
+    <string name="select_player">Select Football Star</string>
+    <string name="select_template">Select Call Template</string>
+    <string name="select_call_type">Select Call Type</string>
+    <string name="voice_call">Voice Call</string>
+    <string name="video_call">Video Call</string>
+
+    <string name="select_timer">Call Timer</string>
+    <string name="call_now">Call Now</string>
+    <string name="timer_5s">5 Seconds</string>
+    <string name="timer_10s">10 Seconds</string>
+    <string name="timer_30s">30 Seconds</string>
+    <string name="timer_60s">60 Seconds</string>
+
+    <string name="btn_start_call">Start Fake Call Simulation</string>
+
+    <string name="disclaimer_title">Disclaimer &amp; Consent</string>
+    <string name="disclaimer_content">This application is created for fans and is intended solely for entertainment and prank purposes. This app is NOT official and is NOT affiliated with, endorsed by, or approved by any football player, club, or organization. All calls are simulated.\n\nBy continuing, you accept these terms.</string>
+    <string name="btn_accept">I Agree</string>
+
+    <string name="set_as_wallpaper">Set As Wallpaper</string>
+    <string name="home_screen">Home Screen</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="both_screens">Both Screens</string>
+    <string name="wallpaper_success">Wallpaper applied successfully!</string>
+
+    <string name="calling">Calling&#8230;</string>
+    <string name="incoming_call">Incoming Call&#8230;</string>
+    <string name="call_scheduled">Call scheduled in %1$d seconds&#8230;</string>
+
+    <string name="decline_call">Decline</string>
+    <string name="accept_call">Accept</string>
+
+    <string name="add_custom_player">Add Custom Star</string>
+    <string name="watch_rewarded_ad">Watch Ad to Unlock</string>
+    <string name="custom_player_dialog_title">Unlock Custom Player</string>
+    <string name="custom_player_dialog_msg">Watch a short video ad to unlock adding your custom photo and video star!</string>
+
+    <string name="add_custom_player_title">Add Custom Football Star</string>
+    <string name="player_name_hint">Player Name</string>
+    <string name="select_profile_photo">Select Profile Photo</string>
+    <string name="choose_photo">Choose Photo</string>
+    <string name="select_video_mp4">Select Video Call MP4</string>
+    <string name="choose_video">Choose MP4 Video</string>
+    <string name="no_video_selected">No video selected</string>
+    <string name="video_selected">Video selected</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="please_enter_name">Please enter player name</string>
+    <string name="please_select_photo">Please select a photo</string>
+    <string name="please_select_video">Please select a video file</string>
+    <string name="add_custom_player_success">Custom star added successfully!</string>
+
+    <string name="filter_all">All</string>
+    <string name="filter_photo">Photo Wallpaper</string>
+    <string name="filter_video">Video Wallpaper</string>
+    <string name="ad_badge">Ad</string>
+
+    <!-- User Guide Strings -->
+    <string name="guide_title">User Guide &amp; App Instructions</string>
+    <string name="guide_subtitle">How to Use the App</string>
+    <string name="guide_step_1_title">1. How to Make a Fake Call</string>
+    <string name="guide_step_1_desc">Choose your favorite football star from the list, pick a template style (WA, IG, or TG), select Voice or Video Call, set the timer (Call Now or Delay), then tap \'Start Fake Call Simulation\'.</string>
+
+    <string name="guide_step_2_title">2. How to Add a Custom Star</string>
+    <string name="guide_step_2_desc">Tap the \'Add Custom (+)\' card at the end of the player list. Watch a short video ad to unlock this feature. Enter player name, select a profile photo, and pick an MP4 video file from your phone gallery.</string>
+
+    <string name="guide_step_3_title">3. How to Drag the Front Camera</string>
+    <string name="guide_step_3_desc">When the video call is connected, touch and drag your front camera preview window anywhere on the screen freely.</string>
+
+    <string name="guide_step_4_title">4. How to Set Wallpapers</string>
+    <string name="guide_step_4_desc">Open the Wallpaper tab, select your preferred photo or video, then tap \'Set As Wallpaper\' to apply to Home Screen, Lock Screen, or Both.</string>
+
+    <string name="language_selection">Language Selection</string>
+    <string name="english">English</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+</resources>

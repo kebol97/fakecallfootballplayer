@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_fake_call"
+        android:icon="@drawable/ic_fake_call"
+        android:title="@string/tab_fake_call" />
+    <item
+        android:id="@+id/nav_wallpaper"
+        android:icon="@drawable/ic_wallpaper"
+        android:title="@string/tab_wallpaper" />
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/tab_settings" />
+</menu>

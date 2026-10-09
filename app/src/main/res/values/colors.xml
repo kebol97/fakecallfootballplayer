@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Modern Palette -->
+    <color name="bg_dark">#0F172A</color>
+    <color name="surface_dark">#1E293B</color>
+    <color name="surface_card">#334155</color>
+    <color name="primary_accent">#38BDF8</color>
+    <color name="secondary_accent">#818CF8</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="text_muted">#94A3B8</color>
+
+    <!-- Social Media Template Colors -->
+    <color name="wa_green">#25D366</color>
+    <color name="wa_dark_green">#075E54</color>
+    <color name="wa_bg_dark">#0B141A</color>
+    <color name="wa_red">#F44336</color>
+
+    <color name="ig_purple">#833AB4</color>
+    <color name="ig_pink">#E1306C</color>
+    <color name="ig_bg_dark">#121212</color>
+
+    <color name="tg_blue">#0088CC</color>
+    <color name="tg_bg_dark">#17212B</color>
+
+    <color name="red_decline">#EF4444</color>
+    <color name="green_accept">#22C55E</color>
+</resources>

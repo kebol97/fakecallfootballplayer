@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootCallView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212">
+
+    <!-- Fullscreen Video Player for Celebrity Video Stream (Base Background Layer) -->
+    <VideoView
+        android:id="@+id/vvCallerVideo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <!-- Top Navigation Header Bar (Layer Z = 20dp) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:elevation="20dp"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:translationZ="20dp">
+
+        <!-- Minimize / Chevron Down Button (Top Left) -->
+        <ImageButton
+            android:id="@+id/btnMinimize"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_circle_dark_button"
+            android:contentDescription="@null"
+            android:padding="10dp"
+            android:src="@drawable/ic_minimize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Caller Name & Timer / Status (Center) -->
+        <LinearLayout
+            android:id="@+id/layoutCenterHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/layoutRightButtons"
+            app:layout_constraintStart_toEndOf="@id/btnMinimize"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvCallerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Cristiano Ronaldo"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCallTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="0.12"
+                android:textColor="#B0B8C1"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <!-- Right Header Action Buttons (Add Person & More) -->
+        <LinearLayout
+            android:id="@+id/layoutRightButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnAddPerson"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_circle_dark_button"
+                android:contentDescription="@null"
+                android:padding="10dp"
+                android:src="@drawable/ic_add_person" />
+
+            <ImageButton
+                android:id="@+id/btnHeaderMore"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_circle_dark_button"
+                android:contentDescription="@null"
+                android:padding="10dp"
+                android:src="@drawable/ic_more_horiz"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Instagram Left Sidebar Effects & Filters (Layer Z = 20dp) -->
+    <LinearLayout
+        android:id="@+id/layoutIgEffects"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:elevation="20dp"
+        android:orientation="vertical"
+        android:translationZ="20dp"
+        android:visibility="gone">
+
+        <!-- 1. Sparkles Effect -->
+        <ImageButton
+            android:id="@+id/btnIgSparkles"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@null"
+            android:padding="8dp"
+            android:src="@drawable/ic_sparkles" />
+
+        <!-- 2. Magic Wand Filter -->
+        <ImageButton
+            android:id="@+id/btnIgMagicWand"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@null"
+            android:padding="8dp"
+            android:src="@drawable/ic_magic_wand" />
+
+        <!-- 3. Avatar / Face Effects -->
+        <ImageButton
+            android:id="@+id/btnIgAvatars"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@null"
+            android:padding="8dp"
+            android:src="@drawable/ic_add_person" />
+
+        <!-- 4. Media Share / Watch Together -->
+        <ImageButton
+            android:id="@+id/btnIgMediaShare"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@null"
+            android:padding="8dp"
+            android:src="@drawable/ic_media_share" />
+
+    </LinearLayout>
+
+    <!-- Caller Avatar & Ringing Section (Visible before accepting call) -->
+    <LinearLayout
+        android:id="@+id/callerInfoContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerContainer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:translationZ="10dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgCallerAvatar"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:contentDescription="@null"
+            android:padding="2dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_ronaldo"
+            app:shapeAppearanceOverlay="@style/CircleImageStyle"
+            app:strokeColor="@color/wa_green"
+            app:strokeWidth="3dp" />
+
+        <TextView
+            android:id="@+id/tvCallStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/incoming_call"
+            android:textColor="@color/text_muted"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <!-- Camera Preview PIP (Picture in Picture for User Face - DRAGGABLE & ALWAYS ON TOP, Layer Z = 50dp) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardCameraPip"
+        android:layout_width="145dp"
+        android:layout_height="195dp"
+        android:layout_below="@id/headerContainer"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:elevation="50dp"
+        android:focusable="true"
+        android:translationZ="50dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="24dp"
+        app:strokeWidth="0dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.camera.view.PreviewView
+                android:id="@+id/cameraPreviewView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:implementationMode="compatible" />
+
+            <!-- PIP Top Right Action Overlay (Flip Camera & Magic Wand Filter) -->
+            <LinearLayout
+                android:id="@+id/layoutPipActions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <!-- Flip Camera Button -->
+                <ImageButton
+                    android:id="@+id/btnPipFlipCamera"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/bg_circle_pip_button"
+                    android:contentDescription="@null"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_flip_camera" />
+
+                <!-- Magic Wand Filter Button -->
+                <ImageButton
+                    android:id="@+id/btnPipMagicWand"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_circle_pip_button"
+                    android:contentDescription="@null"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_magic_wand" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- State 1: Incoming Call Actions (Accept & Decline) (Layer Z = 30dp) -->
+    <LinearLayout
+        android:id="@+id/layoutRingingActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:elevation="30dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="32dp"
+        android:translationZ="30dp">
+
+        <!-- Decline Button -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnDecline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                app:backgroundTint="@color/red_decline"
+                app:fabCustomSize="72dp"
+                app:maxImageSize="36dp"
+                app:srcCompat="@drawable/ic_call_decline"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/decline_call"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Accept Button -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnAccept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                app:backgroundTint="@color/green_accept"
+                app:fabCustomSize="72dp"
+                app:maxImageSize="36dp"
+                app:srcCompat="@drawable/ic_call_accept"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/accept_call"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- State 2: Active Call Controls Dock Bar (Layer Z = 40dp) -->
+    <LinearLayout
+        android:id="@+id/layoutActiveActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_wa_dock_bar"
+        android:elevation="40dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="14dp"
+        android:translationZ="40dp"
+        android:visibility="gone">
+
+        <!-- Button 1: More (...) / Video Toggle -->
+        <ImageButton
+            android:id="@+id/btnDock1"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_circle_dark_button"
+            android:contentDescription="@null"
+            android:padding="12dp"
+            android:src="@drawable/ic_more_horiz"
+            app:tint="@color/white" />
+
+        <!-- Button 2: Video Camera Toggle / Mic -->
+        <ImageButton
+            android:id="@+id/btnDock2"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_circle_white_button"
+            android:contentDescription="@null"
+            android:padding="12dp"
+            android:src="@drawable/ic_videocam"
+            app:tint="@color/black" />
+
+        <!-- Button 3: Speaker / Media Share -->
+        <ImageButton
+            android:id="@+id/btnDock3"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_circle_white_button"
+            android:contentDescription="@null"
+            android:padding="12dp"
+            android:src="@drawable/ic_speaker"
+            app:tint="@color/black" />
+
+        <!-- Button 4: Mic Mute / Flip Camera -->
+        <ImageButton
+            android:id="@+id/btnDock4"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_circle_dark_button"
+            android:contentDescription="@null"
+            android:padding="12dp"
+            android:src="@drawable/ic_mic_mute"
+            app:tint="@color/white" />
+
+        <!-- Button 5: Red End Call Button -->
+        <ImageButton
+            android:id="@+id/btnEndCall"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_circle_red_button"
+            android:contentDescription="@null"
+            android:padding="12dp"
+            android:src="@drawable/ic_call_decline"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+</RelativeLayout>

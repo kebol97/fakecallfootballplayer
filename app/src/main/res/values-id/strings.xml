@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Panggilan Palsu &amp; Wallpaper Bintang Bola</string>
+    <string name="tab_fake_call">Panggilan Palsu</string>
+    <string name="tab_wallpaper">Wallpaper</string>
+    <string name="tab_settings">Pengaturan</string>
+
+    <string name="select_player">Pilih Pemain Bintang</string>
+    <string name="select_template">Pilih Tampilan Template</string>
+    <string name="select_call_type">Pilih Jenis Panggilan</string>
+    <string name="voice_call">Panggilan Suara</string>
+    <string name="video_call">Panggilan Video</string>
+
+    <string name="select_timer">Timer Panggilan</string>
+    <string name="call_now">Panggil Sekarang</string>
+    <string name="timer_5s">5 Detik</string>
+    <string name="timer_10s">10 Detik</string>
+    <string name="timer_30s">30 Detik</string>
+    <string name="timer_60s">60 Detik</string>
+
+    <string name="btn_start_call">Mulai Simulasi Panggilan</string>
+
+    <string name="disclaimer_title">Disklaimer &amp; Persetujuan</string>
+    <string name="disclaimer_content">Aplikasi ini dibuat khusus untuk penggemar dan bertujuan sebagai hiburan/prank semata. Aplikasi ini TIDAK resmi dan TIDAK terafiliasi, didukung, atau disetujui oleh pemain bola, klub, atau organisasi manapun. Seluruh panggilan hanya berupa simulasi.\n\nDengan melanjutkan, Anda menyetujui ketentuan ini.</string>
+    <string name="btn_accept">Saya Setuju</string>
+
+    <string name="set_as_wallpaper">Pasang Sebagai Wallpaper</string>
+    <string name="home_screen">Layar Utama</string>
+    <string name="lock_screen">Layar Kunci</string>
+    <string name="both_screens">Keduanya</string>
+    <string name="wallpaper_success">Wallpaper berhasil dipasang!</string>
+
+    <string name="calling">Memanggil&#8230;</string>
+    <string name="incoming_call">Panggilan Masuk&#8230;</string>
+    <string name="call_scheduled">Panggilan dijadwalkan dalam %1$d detik&#8230;</string>
+
+    <string name="decline_call">Tolak</string>
+    <string name="accept_call">Jawab</string>
+
+    <string name="add_custom_player">Tambah Bintang Kustom</string>
+    <string name="watch_rewarded_ad">Tonton Iklan untuk Buka</string>
+    <string name="custom_player_dialog_title">Buka Pemain Kustom</string>
+    <string name="custom_player_dialog_msg">Tonton iklan video singkat untuk membuka fitur penambahan foto dan video kustom Anda!</string>
+
+    <string name="add_custom_player_title">Tambah Bintang Bola Kustom</string>
+    <string name="player_name_hint">Nama Pemain</string>
+    <string name="select_profile_photo">Pilih Foto Profil</string>
+    <string name="choose_photo">Pilih Foto</string>
+    <string name="select_video_mp4">Pilih Video Panggilan MP4</string>
+    <string name="choose_video">Pilih Video MP4</string>
+    <string name="no_video_selected">Belum ada video dipilih</string>
+    <string name="video_selected">Video terpilih</string>
+    <string name="btn_save">Simpan</string>
+    <string name="btn_cancel">Batal</string>
+    <string name="please_enter_name">Harap masukkan nama pemain</string>
+    <string name="please_select_photo">Harap pilih foto pemain</string>
+    <string name="please_select_video">Harap pilih file video</string>
+    <string name="add_custom_player_success">Bintang kustom berhasil ditambahkan!</string>
+
+    <string name="filter_all">Semua</string>
+    <string name="filter_photo">Foto Wallpaper</string>
+    <string name="filter_video">Video Wallpaper</string>
+    <string name="ad_badge">Iklan</string>
+
+    <!-- User Guide Strings -->
+    <string name="guide_title">Panduan Pengguna (User Guide)</string>
+    <string name="guide_subtitle">Cara Menggunakan Aplikasi</string>
+    <string name="guide_step_1_title">1. Cara Melakukan Panggilan Palsu</string>
+    <string name="guide_step_1_desc">Pilih pemain bola idola Anda dari daftar, pilih gaya template (WA, IG, atau TG), pilih Panggilan Suara atau Video, atur timer (Panggil Sekarang atau Delay), lalu tekan tombol \'Mulai Simulasi Panggilan\'.</string>
+
+    <string name="guide_step_2_title">2. Cara Menambah Pemain Kustom Anda</string>
+    <string name="guide_step_2_desc">Tekan kartu \'Add Custom (+)\' di ujung daftar pemain. Tonton iklan video singkat hingga selesai untuk membuka fitur ini. Masukkan nama pemain, pilih foto profil, dan pilih file video MP4 dari galeri HP Anda.</string>
+
+    <string name="guide_step_3_title">3. Cara Menggeser Kamera Depan</string>
+    <string name="guide_step_3_desc">Saat panggilan video terhubung, sentuh dan geser kotak pratinjau kamera depan Anda ke sudut mana saja di layar secara bebas.</string>
+
+    <string name="guide_step_4_title">4. Cara Memasang Wallpaper</string>
+    <string name="guide_step_4_desc">Buka tab Wallpaper, pilih gambar atau video pilihan Anda, lalu tekan \'Pasang Sebagai Wallpaper\' untuk memasang di Layar Utama, Layar Kunci, atau Keduanya.</string>
+
+    <string name="language_selection">Pilih Bahasa (Language)</string>
+    <string name="english">Bahasa Inggris (English)</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+</resources>
