@@ -17,7 +17,7 @@ import com.cococue.fakecallfootballplayer.utils.LocaleHelper
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
-    private val splashDurationMs = 2500L
+    private val splashDurationMs = 2000L
     private var isNavigated = false
 
     override fun attachBaseContext(newBase: Context) {
@@ -47,8 +47,27 @@ class SplashActivity : AppCompatActivity() {
         binding.layoutSplashContent.startAnimation(fadeInAnim)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            navigateToMain()
+            showAppOpenAdAndNavigate()
         }, splashDurationMs)
+    }
+
+    private fun showAppOpenAdAndNavigate() {
+        if (!isNavigated) {
+            if (AdManager.isAppOpenAdLoaded()) {
+                AdManager.showAppOpenAdIfAvailable(this) {
+                    navigateToMain()
+                }
+            } else {
+                // Wait up to 1 extra second for App Open Ad to finish loading
+                Handler(Looper.getMainLooper()).postDelayed({
+                    if (!isNavigated) {
+                        AdManager.showAppOpenAdIfAvailable(this) {
+                            navigateToMain()
+                        }
+                    }
+                }, 1000L)
+            }
+        }
     }
 
     private fun navigateToMain() {

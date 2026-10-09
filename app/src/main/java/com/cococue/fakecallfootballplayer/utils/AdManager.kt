@@ -34,10 +34,10 @@ object AdManager {
 
     // Default Official Google AdMob Test Ad Unit IDs & GitHub Remote Config URL
     const val DEFAULT_GITHUB_JSON_URL = "https://raw.githubusercontent.com/kebol97/fakecallfootballplayer/refs/heads/master/ads.json"
-    private const val DEFAULT_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712"
-    private const val DEFAULT_NATIVE_ID = "ca-app-pub-3940256099942544/2247696110"
-    private const val DEFAULT_REWARDED_ID = "ca-app-pub-3940256099942544/5224354917"
-    private const val DEFAULT_APP_OPEN_ID = "ca-app-pub-3940256099942544/9257395921"
+    private const val DEFAULT_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712x"
+    private const val DEFAULT_NATIVE_ID = "ca-app-pub-3940256099942544/2247696110x"
+    private const val DEFAULT_REWARDED_ID = "ca-app-pub-3940256099942544/5224354917x"
+    private const val DEFAULT_APP_OPEN_ID = "ca-app-pub-3940256099942544/9257395921x"
 
     private const val PREF_NAME = "ad_remote_pref"
     private const val KEY_SHOW_ADS = "show_ads"
@@ -65,13 +65,24 @@ object AdManager {
     private var isInitialized = false
 
     /**
-     * Official Google UMP GDPR Consent & AdMob Initialization Flow
+     * Fast Parallel AdMob Initialization Flow
      */
     fun init(activity: Activity, githubUrl: String = DEFAULT_GITHUB_JSON_URL) {
         loadCachedConfig(activity)
         if (!isInitialized) {
             isInitialized = true
-            requestConsentAndInit(activity, githubUrl)
+
+            // 1. Instantly initialize MobileAds & start preloading ads from frame 1!
+            MobileAds.initialize(activity) {}
+            loadAppOpenAd(activity)
+            loadInterstitialAd(activity)
+            loadRewardedAd(activity)
+
+            // 2. Fetch fresh remote config from GitHub in background
+            fetchRemoteConfig(activity, githubUrl)
+
+            // 3. Request UMP Consent in background (non-blocking)
+            requestConsent(activity)
         }
     }
 
@@ -99,7 +110,7 @@ object AdManager {
         }
     }
 
-    private fun requestConsentAndInit(activity: Activity, githubUrl: String) {
+    private fun requestConsent(activity: Activity) {
         val params = ConsentRequestParameters.Builder().build()
         val consentInformation = UserMessagingPlatform.getConsentInformation(activity)
 
@@ -107,26 +118,10 @@ object AdManager {
             activity,
             params,
             {
-                UserMessagingPlatform.loadAndShowConsentFormIfRequired(activity) { _ ->
-                    if (consentInformation.canRequestAds()) {
-                        initAdMob(activity, githubUrl)
-                    }
-                }
+                UserMessagingPlatform.loadAndShowConsentFormIfRequired(activity) { _ -> }
             },
-            { _ ->
-                if (consentInformation.canRequestAds()) {
-                    initAdMob(activity, githubUrl)
-                }
-            }
+            { _ -> }
         )
-    }
-
-    private fun initAdMob(context: Context, githubUrl: String) {
-        MobileAds.initialize(context) {}
-        fetchRemoteConfig(context, githubUrl)
-        loadInterstitialAd(context)
-        loadRewardedAd(context)
-        loadAppOpenAd(context)
     }
 
     /**
@@ -137,8 +132,8 @@ object AdManager {
             try {
                 val url = URL(githubUrl)
                 val conn = url.openConnection() as HttpURLConnection
-                conn.connectTimeout = 5000
-                conn.readTimeout = 5000
+                conn.connectTimeout = 3000
+                conn.readTimeout = 3000
                 conn.requestMethod = "GET"
 
                 if (conn.responseCode == 200) {
@@ -183,9 +178,9 @@ object AdManager {
 
                     if (showAds) {
                         (context as? Activity)?.runOnUiThread {
-                            loadInterstitialAd(context)
-                            loadRewardedAd(context)
-                            loadAppOpenAd(context)
+                            if (appOpenAd == null) loadAppOpenAd(context)
+                            if (interstitialAd == null) loadInterstitialAd(context)
+                            if (rewardedAd == null) loadRewardedAd(context)
                         }
                     }
                 }
@@ -193,6 +188,10 @@ object AdManager {
                 e.printStackTrace()
             }
         }
+    }
+
+    fun isAppOpenAdLoaded(): Boolean {
+        return showAds && appOpenAd != null
     }
 
     fun loadAppOpenAd(context: Context) {
