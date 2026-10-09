@@ -33,10 +33,10 @@ import androidx.core.content.edit
 object AdManager {
 
     // Default Official Google AdMob Test Ad Unit IDs & GitHub Remote Config URL
-    const val DEFAULT_GITHUB_JSON_URL = "https://raw.githubusercontent.com/spdev/fakecall/main/ad_config.json"
-    private const val DEFAULT_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712"
-    private const val DEFAULT_NATIVE_ID = "ca-app-pub-3940256099942544/2247696110"
-    private const val DEFAULT_REWARDED_ID = "ca-app-pub-3940256099942544/5224354917"
+    const val DEFAULT_GITHUB_JSON_URL = "https://raw.githubusercontent.com/kebol97/fakecallfootballplayer/refs/heads/master/ads.json"
+    private const val DEFAULT_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712x"
+    private const val DEFAULT_NATIVE_ID = "ca-app-pub-3940256099942544/2247696110x"
+    private const val DEFAULT_REWARDED_ID = "ca-app-pub-3940256099942544/5224354917x"
 
     private const val PREF_NAME = "ad_remote_pref"
     private const val KEY_SHOW_ADS = "show_ads"
