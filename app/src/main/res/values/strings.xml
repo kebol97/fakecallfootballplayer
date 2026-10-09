@@ -79,4 +79,9 @@
     <string name="language_selection">Language Selection</string>
     <string name="english">English</string>
     <string name="indonesian">Bahasa Indonesia</string>
+
+    <!-- Splash Screen Strings -->
+    <string name="splash_tagline">Football Star Calls &amp; Unlimited Custom Idols!</string>
+    <string name="splash_badge">✨ Add &amp; Call Your Own Idol Customly</string>
+    <string name="splash_loading">Preparing best experience&#8230;</string>
 </resources>

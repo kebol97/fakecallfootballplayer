@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.edit
 import com.cococue.fakecallfootballplayer.R
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
@@ -14,6 +15,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.appopen.AppOpenAd
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.gms.ads.nativead.MediaView
@@ -28,32 +30,38 @@ import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.concurrent.thread
 
-import androidx.core.content.edit
-
 object AdManager {
 
     // Default Official Google AdMob Test Ad Unit IDs & GitHub Remote Config URL
     const val DEFAULT_GITHUB_JSON_URL = "https://raw.githubusercontent.com/kebol97/fakecallfootballplayer/refs/heads/master/ads.json"
-    private const val DEFAULT_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712x"
-    private const val DEFAULT_NATIVE_ID = "ca-app-pub-3940256099942544/2247696110x"
-    private const val DEFAULT_REWARDED_ID = "ca-app-pub-3940256099942544/5224354917x"
+    private const val DEFAULT_INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712"
+    private const val DEFAULT_NATIVE_ID = "ca-app-pub-3940256099942544/2247696110"
+    private const val DEFAULT_REWARDED_ID = "ca-app-pub-3940256099942544/5224354917"
+    private const val DEFAULT_APP_OPEN_ID = "ca-app-pub-3940256099942544/9257395921"
 
     private const val PREF_NAME = "ad_remote_pref"
     private const val KEY_SHOW_ADS = "show_ads"
     private const val KEY_INTERSTITIAL_ID = "interstitial_id"
     private const val KEY_NATIVE_ID = "native_id"
     private const val KEY_REWARDED_ID = "rewarded_id"
+    private const val KEY_APP_OPEN_ID = "app_open_id"
     private const val KEY_MIN_INTERVAL = "min_interval"
+    private const val KEY_APP_OPEN_INTERVAL = "app_open_interval"
 
     var showAds = true
     var interstitialAdId = DEFAULT_INTERSTITIAL_ID
     var nativeAdId = DEFAULT_NATIVE_ID
     var rewardedAdId = DEFAULT_REWARDED_ID
+    var appOpenAdId = DEFAULT_APP_OPEN_ID
     var minIntervalSec = 30L
+    var appOpenIntervalSec = 14400L // Default safe interval: 4 hours (14400 seconds)
 
     private var interstitialAd: InterstitialAd? = null
     private var rewardedAd: RewardedAd? = null
+    private var appOpenAd: AppOpenAd? = null
     private var lastAdShowTime = 0L
+    private var lastAppOpenShowTime = 0L
+    private var isAppOpenShowing = false
     private var isInitialized = false
 
     /**
@@ -73,7 +81,9 @@ object AdManager {
         interstitialAdId = prefs.getString(KEY_INTERSTITIAL_ID, null)?.ifBlank { null } ?: DEFAULT_INTERSTITIAL_ID
         nativeAdId = prefs.getString(KEY_NATIVE_ID, null)?.ifBlank { null } ?: DEFAULT_NATIVE_ID
         rewardedAdId = prefs.getString(KEY_REWARDED_ID, null)?.ifBlank { null } ?: DEFAULT_REWARDED_ID
+        appOpenAdId = prefs.getString(KEY_APP_OPEN_ID, null)?.ifBlank { null } ?: DEFAULT_APP_OPEN_ID
         minIntervalSec = prefs.getLong(KEY_MIN_INTERVAL, 30L)
+        appOpenIntervalSec = prefs.getLong(KEY_APP_OPEN_INTERVAL, 14400L)
     }
 
     private fun saveCachedConfig(context: Context) {
@@ -83,7 +93,9 @@ object AdManager {
             putString(KEY_INTERSTITIAL_ID, interstitialAdId)
             putString(KEY_NATIVE_ID, nativeAdId)
             putString(KEY_REWARDED_ID, rewardedAdId)
+            putString(KEY_APP_OPEN_ID, appOpenAdId)
             putLong(KEY_MIN_INTERVAL, minIntervalSec)
+            putLong(KEY_APP_OPEN_INTERVAL, appOpenIntervalSec)
         }
     }
 
@@ -114,6 +126,7 @@ object AdManager {
         fetchRemoteConfig(context, githubUrl)
         loadInterstitialAd(context)
         loadRewardedAd(context)
+        loadAppOpenAd(context)
     }
 
     /**
@@ -149,7 +162,22 @@ object AdManager {
                         rewardedAdId = fetchedRewarded
                     }
 
-                    minIntervalSec = json.optLong("interstitial_interval_sec", 30L)
+                    val fetchedAppOpen = json.optString("app_open_id").trim()
+                    if (fetchedAppOpen.isNotEmpty()) {
+                        appOpenAdId = fetchedAppOpen
+                    }
+
+                    if (json.has("interstitial_interval_min")) {
+                        minIntervalSec = json.optLong("interstitial_interval_min", 0L) * 60L
+                    } else {
+                        minIntervalSec = json.optLong("interstitial_interval_sec", 30L)
+                    }
+
+                    if (json.has("app_open_interval_min")) {
+                        appOpenIntervalSec = json.optLong("app_open_interval_min", 240L) * 60L
+                    } else {
+                        appOpenIntervalSec = json.optLong("app_open_interval_sec", 14400L)
+                    }
 
                     saveCachedConfig(context)
 
@@ -157,12 +185,63 @@ object AdManager {
                         (context as? Activity)?.runOnUiThread {
                             loadInterstitialAd(context)
                             loadRewardedAd(context)
+                            loadAppOpenAd(context)
                         }
                     }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    fun loadAppOpenAd(context: Context) {
+        if (!showAds || appOpenAdId.isBlank()) return
+
+        val adRequest = AdRequest.Builder().build()
+        AppOpenAd.load(
+            context,
+            appOpenAdId,
+            adRequest,
+            object : AppOpenAd.AppOpenAdLoadCallback() {
+                override fun onAdLoaded(ad: AppOpenAd) {
+                    appOpenAd = ad
+                }
+
+                override fun onAdFailedToLoad(error: LoadAdError) {
+                    appOpenAd = null
+                }
+            }
+        )
+    }
+
+    fun showAppOpenAdIfAvailable(activity: Activity, onAdDismissed: (() -> Unit)? = null) {
+        val currentTime = System.currentTimeMillis()
+        val timeDiffSec = (currentTime - lastAppOpenShowTime) / 1000
+
+        if (showAds && appOpenAd != null && !isAppOpenShowing && timeDiffSec >= appOpenIntervalSec) {
+            appOpenAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                override fun onAdDismissedFullScreenContent() {
+                    appOpenAd = null
+                    isAppOpenShowing = false
+                    lastAppOpenShowTime = System.currentTimeMillis()
+                    loadAppOpenAd(activity)
+                    onAdDismissed?.invoke()
+                }
+
+                override fun onAdFailedToShowFullScreenContent(error: com.google.android.gms.ads.AdError) {
+                    appOpenAd = null
+                    isAppOpenShowing = false
+                    onAdDismissed?.invoke()
+                }
+
+                override fun onAdShowedFullScreenContent() {
+                    isAppOpenShowing = true
+                }
+            }
+            appOpenAd?.show(activity)
+        } else {
+            onAdDismissed?.invoke()
         }
     }
 

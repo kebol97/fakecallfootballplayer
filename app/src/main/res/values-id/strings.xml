@@ -80,4 +80,9 @@
     <string name="language_selection">Pilih Bahasa (Language)</string>
     <string name="english">Bahasa Inggris (English)</string>
     <string name="indonesian">Bahasa Indonesia</string>
+
+    <!-- Splash Screen Strings -->
+    <string name="splash_tagline">Sensasi Panggilan Bintang Bola — Bebas Tambah Foto &amp; Video Idolamu Sendiri!</string>
+    <string name="splash_badge">✨ Bebas Tambah &amp; Telepon Idolamu Sendiri</string>
+    <string name="splash_loading">Memuat pengalaman terbaik&#8230;</string>
 </resources>
